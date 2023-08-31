@@ -1,0 +1,163 @@
+<div class="p-4">
+    <div class="col-md-12">
+        <div class="">
+            <h2 class="title text-center">Student Details</h2>
+            <div class="register-section">
+                <form class="w-100 row" #f="ngForm"  (ngSubmit)="submitForm(f)" autocomplete="off">
+                    <div class="col-md-12">
+                        <h3>Basic Details</h3>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Full Name *</label>
+                        <input type="text" class="form-control" placeholder="Enter Full Name"
+                        name="fullName" id="fullName"
+                        [(ngModel)]="studentDetails.fullName" #fullName="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && fullName.invalid }" required>
+                        <div *ngIf="f.submitted && fullName.invalid" class="invalid-feedback">
+                            <div *ngIf="fullName.errors?.['required']">Full Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Email *</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter Email"
+                            name="email" id="email" pattern="[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.][a-zA-Z]{2,}"
+                            [(ngModel)]="studentDetails.email" #email="ngModel" maxlength="50"
+                            [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required>
+                            <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                                <div *ngIf="email.errors?.['required']">Email is required</div>
+                                <div *ngIf="email.errors?.['pattern']">Email is Invalid</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label w-100">Phone Number *</label>
+                        <input type="text" class="form-control" placeholder="Enter Phone Number" minlength="10" maxlength="14"
+                        name="phoneNumber" id="phoneNumber" 
+                        [(ngModel)]="studentDetails.phoneNumber" #phoneNumber="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && phoneNumber.invalid }" required>
+                        <div *ngIf="f.submitted && phoneNumber.invalid">
+                            <div *ngIf="phoneNumber.errors?.['required']" class="invalid-feedback d-block">Phone Number is required</div>
+                            <div *ngIf="phoneNumber.errors?.['minlength']" class="invalid-feedback d-block">Phone Number must be 10 digits</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="input-label w-100">Program Type*</label>
+                        <select class="form-control" class="form-control" placeholder="Select Program type"
+                        name="programType" id="programType" 
+                        [(ngModel)]="studentDetails.programType" #programType="ngModel"
+                        (ngModelChange)="programTypeChange()"
+                        [ngClass]="{ 'is-invalid': f.submitted && programType.invalid }" required>
+                          <option value="B Tech">B Tech</option>
+                          <option value="M Tech">M tech</option>
+                        </select>
+                        <div *ngIf="f.submitted && programType.invalid">
+                            <div *ngIf="programType.errors?.['required']" class="invalid-feedback d-block">Phone Number is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="input-label w-100">Year of study *</label>
+                        <select class="form-control" class="form-control" placeholder="Select Year of study"
+                        name="yearOfStudy" id="yearOfStudy" 
+                        [(ngModel)]="studentDetails.yearOfStudy" #yearOfStudy="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && yearOfStudy.invalid }" required>
+                        <option [value]="item" *ngFor="let item of listOfYears">{{item}}</option>
+                        </select>
+                        <div *ngIf="f.submitted && yearOfStudy.invalid">
+                            <div *ngIf="yearOfStudy.errors?.['required']" class="invalid-feedback d-block">Phone Number is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Fellowship *</label>
+                        <input type="text" class="form-control" placeholder="Enter Fellowship"
+                        name="fellowship" id="fellowship"
+                        [(ngModel)]="studentDetails.fellowship" #fellowship="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && fellowship.invalid }" required>
+                        <div *ngIf="f.submitted && fellowship.invalid" class="invalid-feedback">
+                            <div *ngIf="fellowship.errors?.['required']">Full Name is required</div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-12">
+                        <h6>Department Details</h6>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Department Name *</label>
+                        <input type="text" class="form-control" placeholder="Enter Department Name"
+                        name="departmentName" id="departmentName"
+                        [(ngModel)]="studentDetails.departmentInfo.departmentName" #departmentName="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && departmentName.invalid }" required>
+                        <div *ngIf="f.submitted && departmentName.invalid" class="invalid-feedback">
+                            <div *ngIf="departmentName.errors?.['required']">Department Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Building Name *</label>
+                        <input type="text" class="form-control" placeholder="Enter Building name"
+                        name="buildingName" id="buildingName"
+                        [(ngModel)]="studentDetails.departmentInfo.buildingName" #buildingName="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && buildingName.invalid }" required>
+                        <div *ngIf="f.submitted && buildingName.invalid" class="invalid-feedback">
+                            <div *ngIf="buildingName.errors?.['required']">Building Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Budget *</label>
+                        <input type="text" class="form-control" placeholder="Enter budget"
+                        name="budget" id="budget"
+                        [(ngModel)]="studentDetails.departmentInfo.budget" #budget="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && budget.invalid }" required>
+                        <div *ngIf="f.submitted && budget.invalid" class="invalid-feedback">
+                            <div *ngIf="budget.errors?.['required']">Budget is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Courses *</label>
+                        <input type="text" class="form-control" placeholder="Enter Courses"
+                        name="courses" id="courses"
+                        [(ngModel)]="studentDetails.departmentInfo.courses" #courses="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && courses.invalid }" required>
+                        <div *ngIf="f.submitted && courses.invalid" class="invalid-feedback">
+                            <div *ngIf="courses.errors?.['required']"> Courses is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <h6>Instructor Details</h6>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Instructor Name *</label>
+                        <input type="text" class="form-control" placeholder="Enter Name"
+                        name="instructorName" id="instructorName"
+                        [(ngModel)]="studentDetails.instructorInfo.instructorName" #instructorName="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && instructorName.invalid }" required>
+                        <div *ngIf="f.submitted && instructorName.invalid" class="invalid-feedback">
+                            <div *ngIf="instructorName.errors?.['required']">Instructor Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Department *</label>
+                        <input type="text" class="form-control" placeholder="Enter Department Name"
+                        name="department" id="department"
+                        [(ngModel)]="studentDetails.instructorInfo.department" #department="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && department.invalid }" required>
+                        <div *ngIf="f.submitted && department.invalid" class="invalid-feedback">
+                            <div *ngIf="department.errors?.['required']">Building Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Salary *</label>
+                        <input type="text" class="form-control" placeholder="Enter Salary"
+                        name="salary" id="salary"
+                        [(ngModel)]="studentDetails.instructorInfo.salary" #salary="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && salary.invalid }" required>
+                        <div *ngIf="f.submitted && salary.invalid" class="invalid-feedback">
+                            <div *ngIf="salary.errors?.['required']">Salary is required</div>
+                        </div>
+                    </div>       -->
+                    <div class="text-center w-100 mb-4 mt-3">
+                        <button type="submit" class="primary-button">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

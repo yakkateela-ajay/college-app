@@ -1,0 +1,34 @@
+<div class="p-4">
+    <div class="col-md-12">
+        <div class="">
+            <h2 class="title text-center">Instructor Details</h2>
+            <div class="register-section">
+                <form class="w-100 row" #f="ngForm"  (ngSubmit)="submitForm(f)" autocomplete="off">
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Student Id  *</label>
+                        <input type="text" class="form-control" placeholder="Enter Student Id"
+                        name="student_id" id="student_id"
+                        [(ngModel)]="advisorInfo.student_id" #student_id="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && student_id.invalid }" required>
+                        <div *ngIf="f.submitted && student_id.invalid" class="invalid-feedback">
+                            <div *ngIf="student_id.errors?.['required']">Student id is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="input-label">Instructor Id *</label>
+                        <input type="text" class="form-control" placeholder="Enter instructor id"
+                        name="instructor_id" id="instructor_id"
+                        [(ngModel)]="advisorInfo.instructor_id" #instructor_id="ngModel"  maxlength="50"
+                        [ngClass]="{ 'is-invalid': f.submitted && instructor_id.invalid }" required>
+                        <div *ngIf="f.submitted && instructor_id.invalid" class="invalid-feedback">
+                            <div *ngIf="instructor_id.errors?.['required']">instructor id is required</div>
+                        </div>
+                    </div> 
+                    <div class="text-center w-100 mb-4 mt-3">
+                        <button type="submit" class="primary-button">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
